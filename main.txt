@@ -1,0 +1,94 @@
+import streamlit as st
+import numpy as np
+import pandas as pd
+from PIL import Image
+
+#起動の仕方（実行）streamlit run main.py（実行したファイル名）　
+# タイトルの追加
+st.title('Streamlit 学習用')
+
+#テキストの追加
+st.write('Display Image')
+
+#画像の読み込み
+img = Image.open('sample.png')
+#use_column_width=True columnに合わせたサイズになる。
+st.image(img, caption='front', use_column_width=True)
+
+# df = pd.DataFrame(
+#     np.random.rand(100, 2),
+#     columns=['lat', 'lon']
+# )
+
+#map表示のため、緯度と経度を取得。
+# df = pd.DataFrame(
+#     np.random.rand(100, 2)/[50, 50] + [35.69, 139.70],
+#     columns=['lat', 'lon']
+# )
+
+# st.write(df)
+#サイズの指定が可能となる。dataframe
+#行と列の指定（axis=0 or 1)0は列
+#pandasの機能style.highlight_max（大きいものをハイライトしてくれる。）
+# st.dataframe(df.style.highlight_max(axis=0), width=300, height=300)
+
+#静的なテーブルの作成
+# st.table(df.style.highlight_max(axis=0))
+
+#マジックコマンド
+#マークダウン記法（テキストを書く）
+# """
+# # 章
+# ## 節
+# ### 項
+
+# ```python
+# import streamlit as st
+# import numpy as np
+# import pandas as p
+# ```
+# """
+
+# #折れ線グラフ
+# st.line_chart(df)
+
+# #エリアチャート
+# st.area_chart(df)
+
+# #バーチャート
+# st.bar_chart(df)
+
+#mapの表示
+# st.map(df)
+
+#インタラクティブ　動的に変化させることができる。
+option = st.selectbox(
+    'あなたが好きな数字を教えてください、',
+    list(range(1, 11))
+)
+'あなたの好きな数字は' ,option, 'です'
+
+text = st.text_input('あなたの趣味を教えてください。')
+'あなたの趣味：',text, 'です。' 
+
+condition = st.slider('あなたの今の調子は？', 0, 100, 50)
+'コンディション：',condition, 'です。' 
+
+#サイドバーへ
+text = st.sidebar.text_input('あなたの趣味を教えてください。')
+'あなたの趣味：',text, 'です。' 
+
+condition = st.sidebar.slider('あなたの今の調子は？', 0, 100, 50)
+'コンディション：',condition, 'です。' 
+
+left_column, right_column = st.columns(2)
+button = left_column.button('右カラムに文字を表示')
+if button:
+    right_column.write('ここは右カラム')
+
+expander = st.expander('問い合わせ１')
+expander.write('問い合わせ１の回答')
+expander = st.expander('問い合わせ２')
+expander.write('問い合わせ２の回答')
+expander = st.expander('問い合わせ３')
+expander.write('問い合わせ３の回答')
